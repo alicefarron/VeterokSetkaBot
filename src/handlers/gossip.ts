@@ -9,6 +9,9 @@ export function registerGossip(bot: Bot): void {
 
     const gossipText = ctx.message.text;
     const gossipId = storeGossip(gossipText);
+    const sender = ctx.from.username
+      ? `@${ctx.from.username}`
+      : `[${ctx.from.first_name}](tg://user?id=${ctx.from.id})`;
 
     await ctx.reply("Сплетня принята 🤫");
 
@@ -16,8 +19,8 @@ export function registerGossip(bot: Bot): void {
 
     await bot.api.sendMessage(
       TEAM_CHAT_ID,
-      `🌬️ Новая сплетня из Ветерка:\n"${gossipText}"\n— Аноним`,
-      { reply_markup: keyboard, message_thread_id: TEAM_THREAD_ID }
+      `🌬️ Новая сплетня из Ветерка:\n"${gossipText}"\n— ${sender}`,
+      { reply_markup: keyboard, message_thread_id: TEAM_THREAD_ID, parse_mode: "Markdown" }
     );
   });
 }

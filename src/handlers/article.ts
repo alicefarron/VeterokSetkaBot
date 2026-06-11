@@ -14,9 +14,9 @@ async function resolveGossip(
   ctx: CallbackQueryContext<Context>,
   gossipId: string
 ): Promise<string | null> {
-  const text = getGossip(gossipId);
-  if (!text) await ctx.answerCallbackQuery({ text: "Сплетня не найдена", show_alert: true });
-  return text ?? null;
+  const entry = getGossip(gossipId);
+  if (!entry) await ctx.answerCallbackQuery({ text: "Сплетня не найдена", show_alert: true });
+  return entry?.text ?? null;
 }
 
 function contentTypeKeyboard(gossipId: string): InlineKeyboard {
